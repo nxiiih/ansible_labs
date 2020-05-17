@@ -1,0 +1,25 @@
+---
+- name: creating user
+  hosts: all
+  remote_user: hei
+  vars_files:
+    - pwd.yml
+    - user.yml
+  tasks:
+    - name: group create
+      group:
+        name: "{{ item }}"
+        state: present
+        system: yes
+      loop: "{{ group }}"
+    - name: Create normal user from vault
+      user:
+        name: "{{ item }}"
+        password: "{{ normal | password_hash('sha512') }}"
+        groups: normal
+      loop: "{{ nusers }}"
+    - name: create super user
+      user:
+        name: "{{ susers }}"
+        password: "{{ super | password_hash('sha512') }}"
+        groups: super 

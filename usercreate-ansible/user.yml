@@ -1,0 +1,9 @@
+nusers:
+  - user1
+  - user2
+
+susers: super1
+
+group:
+  - normal
+  - super
